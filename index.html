@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Calcu</title>
+<style>
+body {
+  font-family: sans-serif;
+}
+.calculator {
+  width: 300px;
+  margin: 0 auto;
+  border: 1px solid #ccc;
+  padding: 10px;
+  background: pink;
+}
+.display {
+  background-color: #eee;
+  padding: 10px;
+  margin-bottom: 10px;
+  text-align: right;
+}
+button {
+  width: 50px;
+  height: 50px;
+  margin: 5px;
+  font-size: 18px;
+}
+</style>
+</head>
+<body>
+<div class="calculator">
+  <div class="display" id="display">0</div>
+  <div>
+    <button onclick="appendNumber('7')">7</button>
+    <button onclick="appendNumber('8')">8</button>
+    <button onclick="appendNumber('9')">9</button>
+    <button onclick="setOperator('/')">/</button>
+  </div>
+  <div>
+    <button onclick="appendNumber('4')">4</button>
+    <button onclick="appendNumber('5')">5</button>
+    <button onclick="appendNumber('6')">6</button>
+    <button onclick="setOperator('*')">*</button>
+  </div>
+  <div>
+    <button onclick="appendNumber('1')">1</button>
+    <button onclick="appendNumber('2')">2</button>
+    <button onclick="appendNumber('3')">3</button>
+    <button onclick="setOperator('-')">-</button>
+  </div>
+  <div>
+    <button onclick="appendNumber('0')">0</button>
+    <button onclick="appendNumber('.')">.</button>
+    <button onclick="calculate()">=</button>
+    <button onclick="setOperator('+')">+</button>
+  </div>
+ 
+
+<script >
+  let display = document.getElementById('display');
+let currentInput = '';
+let operator = '';
+let previousInput = '';
+
+function appendNumber(number) {
+  currentInput += number;
+  display.textContent = currentInput;
+}
+
+function setOperator(op) {
+  if (currentInput !== '') {
+    previousInput = currentInput;
+    operator = op;
+    currentInput = '';
+  }
+}
+
+function calculate() {
+  if (previousInput !== '' && currentInput !== '' && operator !== '') {
+    let result;
+    switch (operator) {
+      case '+':
+        result = parseFloat(previousInput) + parseFloat(currentInput);
+        break;
+      case '-':
+        result = parseFloat(previousInput) - parseFloat(currentInput);
+        break;
+      case '*':
+        result = parseFloat(previousInput) * parseFloat(currentInput);
+        break;
+      case '/':
+        result = parseFloat(previousInput) / parseFloat(currentInput);
+        break;
+      default:
+        result = currentInput;
+    }
+    display.textContent = result;
+    currentInput = result.toString();
+    previousInput = '';
+    operator = '';
+  }
+}
+
+function clearDisplay() {
+  currentInput = '';
+  operator = '';
+  previousInput = '';
+  display.textContent = '0';
+}
+  
+</script> 
+</body>
+</html>
+
